@@ -13,22 +13,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB Config
-const MONGO_URL = require("./config/keys").MONGO_URL;
-const MONGO_DB_USER = require("./config/keys").MONGO_DB_USER;
-const MONGO_DB_PASSWORD = require("./config/keys").MONGO_DB_PASSWORD;
+const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    MONGO_URL,
-    {
-      auth: {
-        user: MONGO_DB_USER,
-        password: MONGO_DB_PASSWORD
-      },
-      useNewUrlParser: true
-    }
-  )
+  .connect(db)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
